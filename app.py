@@ -9,7 +9,7 @@ from View.screens import screens
 from kivy.clock import Clock, mainthread
 from kivy.properties import DictProperty, StringProperty
 from kivy.factory import Factory
-from kivymd.tools.hotreload.app import MDApp
+# from kivymd.tools.hotreload.app import MDApp
 # from kivy.factory import Factory
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.screen import MDScreen
@@ -19,7 +19,7 @@ from typing import NoReturn
 from threading import Thread
 from glob import glob
 from libs.tflite import TfliteHelper
-# from kivymd.app import MDApp
+from kivymd.app import MDApp
 from libs import db
 from View.Common.components.nav import NavigationItem
 
@@ -51,7 +51,7 @@ class HeartApp(MDApp):
         self.default_screen = "SECURED"
         self.secured_screen_name = "SECURED"
 
-        self.DEBUG = True
+        self.DEBUG = False
         self.FOREGROUND_LOCK = True
         self.KV_FILES = [*glob("**/*.kv", recursive=True)]
         self.AUTORELOADER_IGNORE_PATTERNS = [
