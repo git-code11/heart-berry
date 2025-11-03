@@ -1,0 +1,71 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Clock kivy.clock
+
+<LoginScreenView>
+  email_field: email_field
+  password_field: password_field
+
+  md_bg_color: get_color_from_hex("#FFFFFF")
+  
+  MDBoxLayout:
+    orientation: "vertical"
+    spacing: dp(8)
+    adaptive_height: True
+    padding: 0, dp(20)
+
+    MDBoxLayout:
+      orientation: "vertical"
+      adaptive_height: True
+      size_hint_x: 0.8
+      pos_hint: {"center_x": .5}
+      spacing: dp(20)
+
+      LoginFormField:
+        id: email_field
+        # required: True
+        icon: "email"
+        label: "Email"
+        text: "john@mail"
+
+      MDBoxLayout:
+        orientation: "vertical"
+        adaptive_height: True
+        spacing: dp(4)
+        # md_bg_color: "red"
+
+        LoginFormField:
+          id: password_field
+          # required: True
+          icon: "account-key"
+          label: "Password"
+          text: "password"
+
+        MDButton:
+          pos_hint: {"right": 1}
+          style: "text"
+          ripple_effect: False
+          on_release: root.manager.loc = "forgotpassword"
+
+          MDButtonText:
+            text: "Forgot Password?"
+            font_style: "Body"
+            theme_text_color: "Custom"
+            text_color: "blue"
+
+      LoginFormButton:
+        id: login_btn
+        label: "Login"
+        on_release: root.login_action()
+
+
+    MDButton:
+      pos_hint: {"center_x": .5}
+      style: "text"
+      ripple_effect: False
+      on_release: root.manager.loc = "register"
+
+      MDButtonText:
+        text: "Create new account"
+        font_style: "Body"
+        theme_text_color: "Custom"
+        text_color: "blue"

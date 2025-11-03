@@ -1,0 +1,40 @@
+#:import get_color_from_hex kivy.utils.get_color_from_hex
+#:import Clock kivy.clock
+
+<OnboardingScreenView>
+  md_bg_color: get_color_from_hex("#e8ddcb")
+
+  MDFloatLayout:
+    background: "assets/images/logo.png"
+    md_bg_color: (1,1,1,1)
+    adaptive_size: True
+    pos_hint: {"center_x": 0.5, "center_y": 0.5}
+    size_hint: .5, .5
+
+  MDLabel:
+    id: test
+    text: "Health diagnosis"
+    bold: True
+    font_style: "Display"
+    role: "small"
+    font_size: "32sp"
+    adaptive_size: True
+    padding: dp(24)
+    pos_hint: {"center_x":.5, "top":1.}
+    color: root.theme_cls.primaryColor
+    # color: get_color_from_hex("#2b2414")
+
+  LoadingHeart:
+    pos_hint: {"right": 0.95, "y": 0.05}
+
+  MDButton:
+    pos_hint: {"center_x": 0.5}
+    y: 16
+    style: "elevated"
+    on_release: root.manager.loc = 'login'
+
+    MDButtonText:
+      padding: dp(0)
+      text: "Get Started"
+      theme_font_size: "Custom"
+      font_size: sp(22)

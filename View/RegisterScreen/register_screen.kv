@@ -1,0 +1,71 @@
+<RegisterScreenView>
+  name_field: name_field
+  email_field: email_field
+  password_field: password_field
+  md_bg_color: get_color_from_hex("#FFFFFF")
+
+  MDBoxLayout:
+    orientation: "vertical"
+    pos_hint: {"center_x": .5, "top": 1}
+    padding: 0, dp(36), 0, dp(8)
+
+    MDLabel:
+      text: "Create Account"
+      bold: True
+      halign: "center"
+      font_style: "Headline"
+      role: "medium"
+      text_color: "#005da6"
+
+    Widget:
+      size_hint_y: None
+      height: dp(16)
+
+    MDBoxLayout:
+      orientation: "vertical"
+      adaptive_height: True
+      size_hint_x: 0.8
+      pos_hint: {"center_x": .5}
+      spacing: dp(8)
+
+      LoginFormField:
+        # required: True
+        id: name_field
+        icon: "account"
+        label: "Name"
+        text: "john"
+
+      LoginFormField:
+        # required: True
+        id: email_field
+        icon: "email"
+        label: "Email"
+        text: "john@mail"
+
+      LoginFormField:
+        # required: True
+        id: password_field
+        icon: "account-key"
+        label: "Password"
+        text: "password"
+
+      Widget:
+        size_hint_y: None
+        height: dp(16)
+
+      LoginFormButton:
+        id: signup_btn
+        label: "Sign Up"
+        on_release: root.signup_action()
+    
+    MDButton:
+      pos_hint: {"center_x": .5}
+      style: "text"
+      ripple_effect: False
+      on_release: root.manager.loc = "login"
+
+      MDButtonText:
+        text: "Already have an account?"
+        font_style: "Body"
+        theme_text_color: "Custom"
+        text_color: "blue"

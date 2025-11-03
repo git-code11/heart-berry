@@ -1,0 +1,56 @@
+<LoginFormField@MDTextField>:
+  icon: ""
+  label: ""
+  helper: ""
+  color_theme: "#005da6"
+  error_color_theme: "#f35f0f"
+  mode: "filled"
+  pos_hint: {"center_x": .5, "center_y": .5}
+  theme_focus_color: "Custom"
+  theme_bg_color: "Custom"
+  fill_color_focus: (0, 0, 0, 0)
+  fill_color_normal: (0, 0, 0, 0)
+  theme_line_color: "Custom"
+  line_color_focus: root.color_theme
+  line_color_normal: root.color_theme
+
+  MDTextFieldLeadingIcon:
+    icon: root.icon
+    theme_icon_color: "Custom"
+    icon_color_normal: root.color_theme
+    icon_color_focus: root.color_theme
+
+  MDTextFieldHintText:
+    text: root.label
+    theme_text_color: "Custom"
+    text_color_normal: root.color_theme
+    text_color_focus: root.color_theme
+
+  MDTextFieldHelperText:
+    text: root.helper
+    mode: "persistent"
+    theme_text_color: "Custom"
+    text_color_normal: root.error_color_theme
+    text_color_focus: root.error_color_theme
+    role: "large"
+
+
+<LoginFormButton@MDButton>:
+  label: ""
+  pos_hint: {"center_x": 0.5}
+  height: dp(42)
+  theme_width: "Custom"
+  size_hint_x: 0.4
+  style: "elevated"
+  theme_bg_color: "Custom"
+  md_bg_color: get_color_from_hex("#f3f3f3")
+  radius: dp(8)
+
+  MDButtonText:
+    text: root.label
+    pos_hint: {"center_x": .5, "center_y": .5}
+    theme_text_color: "Custom"
+    text_color: "#005da6" 
+    font_style: "Title"
+    role: "large"
+    bold: True

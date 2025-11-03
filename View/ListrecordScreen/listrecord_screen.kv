@@ -1,0 +1,94 @@
+<RecordCard@MDCard>
+  padding: "8dp"
+  spacing: dp(16)
+  ripple_behavior: True 
+  theme_bg_color: "Custom"
+  size_hint_y: None
+  height: dp(100)
+  adaptive_width: True
+
+  MDBoxLayout:
+    size_hint_x: None
+    width: dp(80)
+    md_bg_color: "black"
+    
+  MDBoxLayout:
+    orientation: "vertical"
+    pos_hint: {"center_y": .5}
+    adaptive_size: True
+    spacing: dp(8)
+
+    MDLabel:
+      text: "General Report"
+      adaptive_size: True
+      bold: True
+
+    MDLabel:
+      text: root.date #"03, Nov 2025"
+      adaptive_size: True
+      bold: True
+
+    MDLabel:
+      text: root.time # "12:50AM"
+      adaptive_size: True
+      bold: True
+
+<ListView@MDRecycleView>
+  viewclass: "RecordCard"
+  RecycleBoxLayout:
+    size_hint_y: None
+    height: self.minimum_height
+    orientation: 'vertical'
+    spacing: dp(16)
+    padding: dp(24)
+
+<ListrecordScreenView>
+  listview: listview
+  md_bg_color: (1,1,1,1)
+  MDBoxLayout:
+    orientation: 'vertical'
+
+    MDTopAppBar:
+      id: topBar
+      type: "small"
+      pos_hint: {"top": 1}
+      height: dp(48)
+
+      MDTopAppBarTitle:
+        id: topBarTitle
+        text: "My Results"
+        bold: True
+
+      MDTopAppBarTrailingButtonContainer:
+        MDActionTopAppBarButton:
+          icon: "refresh"
+          on_release: root.controller.refresh_list()
+
+    ListView:
+      id: listview
+
+<PreviewScreen@MDScreen>
+  text: "Preview Doc"
+  md_bg_color: self.theme_cls.backgroundColor
+
+  MDBoxLayout:
+    orientation: 'vertical'
+
+    MDTopAppBar:
+      id: topBar
+      type: "small"
+      pos_hint: {"top": 1}
+      height: dp(50)
+
+      MDTopAppBarLeadingButtonContainer:
+        MDActionTopAppBarButton:
+          icon: "arrow-left"
+          on_release: root.manager.goBack()
+
+      MDTopAppBarTitle:
+        id: topBarTitle
+        text: "Result Preview"
+        bold: True
+
+    RstDocument:
+      text: root.text

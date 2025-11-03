@@ -1,0 +1,20 @@
+<SelectField@MDBoxLayout>
+  drop_text: drop_text
+  label: ""
+  adaptive_height: True
+  orientation: "vertical"
+  padding: 0, dp(8), 0, 0
+  spacing: dp(12)
+
+  MDLabel:
+    text: root.label
+  
+  MDDropDownItem
+    on_release: root.open_menu(self)
+
+    MDDropDownItemText:
+      id: drop_text
+      text: "Not Selected"
+      font_style: "Title"
+      role: "medium"
+      bold: True

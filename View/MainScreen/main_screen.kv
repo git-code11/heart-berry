@@ -1,0 +1,44 @@
+<MainScreenView>
+  form: form
+  md_bg_color: self.theme_cls.backgroundColor
+
+  MDTopAppBar:
+    id: topBar
+    type: "small"
+    pos_hint: {"top": 1}
+    height: dp(50)
+
+    MDTopAppBarLeadingButtonContainer:
+      MDActionTopAppBarButton:
+        icon: "arrow-left"
+        on_release: root.manager.goBack()
+
+    MDTopAppBarTitle:
+      id: topBarTitle
+      text: "Heart Diagnosis Form"
+      bold: True
+
+  ScrollView:
+    do_scroll_x: False
+    size_hint_y: None
+    height: root.height - topBar.height
+    
+    MDBoxLayout:
+      orientation: "vertical"
+      adaptive_height: True
+      padding: dp(16)
+      spacing: dp(16)
+
+      DiagnosisForm:
+        id: form
+
+      MDButton:
+        id: submit
+        style: "outlined"
+        pos_hint: {"center_x": .5}
+        on_release: root.predict()
+        MDButtonText:
+          text: "Predict"
+          bold: True
+          theme_font_size: "Custom"
+          font_size: sp(16)

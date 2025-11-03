@@ -1,0 +1,20 @@
+[project]
+name = "heart-app"
+version = "0.1.0"
+description = "Heart Attack Prediction Appliction for Raspberrypi"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "ai-edge-litert>=2.0.2",
+    "bcrypt>=5.0.0",
+    "bson>=0.5.10",
+    "kivy>=2.3.1",
+    "kivymd",
+    "multitasking>=0.0.12",
+    "pyinstaller>=6.16.0",
+    "sqlalchemy>=2.0.44",
+    "watchdog>=6.0.0",
+]
+
+[tool.uv.sources]
+kivymd = { url = "https://github.com/kivymd/KivyMD/archive/master.zip" }

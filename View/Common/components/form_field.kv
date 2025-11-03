@@ -1,0 +1,23 @@
+#: import re re
+#: import TextInput kivy.uix.textinput.TextInput
+
+<FormField@MDBoxLayout>
+  value: input.text
+  label: ""
+  numeric: False
+  adaptive_height: True
+  orientation: "vertical"
+
+  MDLabel:
+    text: root.label
+    adaptive_height: True
+
+  MDTextField:
+    id: input
+    mode: "outlined"
+    height: dp(36)
+    multiline: False
+    insert_text: 
+      lambda c,z=True: TextInput.insert_text(self, c, z) \
+      if not root.numeric or re.match(r'^\d*[.]?\d*$',self.text+c) \
+      else None
