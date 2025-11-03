@@ -126,7 +126,7 @@ class HeartApp(MDApp):
         )
         return layout
 
-    def build_app(self) -> MDScreenManager:
+    def build(self) -> MDScreenManager:
         self.app_manager = AppScreenManager()
         screen_names = ["onboarding", "register", "login", "forgotpassword"]
         self.generate_application_screens(self.app_manager, screen_names)

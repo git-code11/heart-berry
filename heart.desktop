@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Heart Diagnosis
+Comment=Heart Diagnosis App
+Exec=/home/pi/Desktop/heart-app/heart.sh
+Type=Application
+Icon=/home/pi/Desktop/heart-app/assets/images/logo.png
+Categories=Panel;Internet
+
