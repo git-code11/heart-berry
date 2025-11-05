@@ -60,6 +60,6 @@ class DBHelper:
         with self.get_session() as session:
             stmt = E.select(Analysis) \
                 .where(Analysis.user_id ==
-                       user_id).order_by(-Analysis.created)
+                       user_id).order_by(Analysis.created.desc())
             records = session.scalars(stmt)
             return records.all()

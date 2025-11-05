@@ -63,8 +63,8 @@ class MainScreenView(BaseScreenView):
                 dialog = create_success_dialog(
                     title="Inference Complete",
                     msg=msg,
-                    action_label="Preview",
-                    action=self.preview_action
+                    action_label="Ok",
+                    action=lambda _: self.preview_action(dialog)
                 )
                 dialog.open()
         elif model_status == StatusKind.ERROR:
@@ -75,8 +75,8 @@ class MainScreenView(BaseScreenView):
         for obj in objs:
             obj.disabled = disabled
 
-    def preview_action(self, _):
-        print("preview result")
+    def preview_action(self, dialog):
+        dialog.dismiss()
 
     def predict(self):
         data = self.ids.form.get_data()

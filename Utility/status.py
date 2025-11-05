@@ -48,6 +48,7 @@ class StatusSnackBar:
             y="24dp",
             pos_hint={"center_x": 0.5},
             size_hint_x=.75,
+            duration=1.5,
             background_color=bg_color
         )
         prop.update(kwargs)

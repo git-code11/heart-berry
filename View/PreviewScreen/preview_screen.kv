@@ -1,0 +1,31 @@
+<PreviewScreenView>
+  text: "Preview Doc"
+  md_bg_color: self.theme_cls.backgroundColor
+
+  MDBoxLayout:
+    orientation: 'vertical'
+
+    MDTopAppBar:
+      type: "small"
+      pos_hint: {"top": 1}
+      height: dp(50)
+
+      MDTopAppBarLeadingButtonContainer:
+        MDActionTopAppBarButton:
+          icon: "arrow-left"
+          on_release: root.manager.goBack()
+
+      MDTopAppBarTitle:
+        id: topBarTitle
+        text: "Result Preview"
+        bold: True
+
+    
+    ScrollView:
+      do_scroll_x: False
+      # size_hint_y: None
+      # height: root.height - topBar.height
+      MDBoxLayout:
+        # adaptive_height: True
+        RstDocument:
+          text: root.text

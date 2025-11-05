@@ -26,13 +26,16 @@ from View.Common.components.nav import NavigationItem
 
 class AppScreenManager(MDScreenManager):
     loc = StringProperty()
+    last = StringProperty()
 
     def goTo(self, screen_name: str):
+        self.last = str.replace(self.current, " screen", "")
         self.current = screen_name
 
     def goBack(self):
-        prev_screen_name = self.previous()
-        prev_screen_name = str.rstrip(prev_screen_name, " screen")
+        # prev_screen_name = self.previous()
+        # prev_screen_name = str.replace(prev_screen_name, " screen", "")
+        prev_screen_name = self.last
         self.loc = prev_screen_name
 
     def on_loc(self, _, value):
@@ -54,8 +57,10 @@ class HeartApp(MDApp):
         self.DEBUG = False
         self.FOREGROUND_LOCK = True
         self.KV_FILES = [*glob("**/*.kv", recursive=True)]
+        self.AUTORELOADER_PATHS = [x for x in glob(
+            "*") if x not in ('data.db', '__pycache__')]
         self.AUTORELOADER_IGNORE_PATTERNS = [
-            "*.pyc", "*__pycache__*", ".git*", ".venv*", "data.db"
+            "*.pyc", "*__pycache__*", ".git"
         ]
         # self.CLASSES = {
         #     "LoginScreen": "View.LoginScreen.login_screen",
@@ -71,20 +76,12 @@ class HeartApp(MDApp):
             r'assets/models/heart.tflite', ["NEGATIVE", "POSITIVE"])
         self.engine = db.init_engine()
 
-    def on_switch_tabs(self, nav: MDNavigationBar, manager: AppScreenManager, item: NavigationItem):
+    def on_switch_tabs(self, nav: MDNavigationBar,
+                       manager: AppScreenManager,
+                       item: NavigationItem):
         if item.screen_name == "logout":
             if 'user' in self.global_state:
                 self.global_state.pop('user')
-            screen_name = "listrecord"
-            # Ensures the home loaction is default
-            manager.loc = screen_name
-            # Ensures the home tab is selected
-            result = list(filter(lambda item: item.screen_name ==
-                          screen_name, nav.children))
-
-            if len(result) > 0:
-                Clock.schedule_once(
-                    lambda _: nav.set_active_item(result[0]), 1)
         else:
             manager.loc = item.screen_name
 
@@ -112,10 +109,19 @@ class HeartApp(MDApp):
             self.on_switch_tabs(nav, manager, item)
         )
 
-        screen_names = ["listrecord", "main"]
+        screen_names = ["listrecord", "main", "preview"]
         self.generate_application_screens(manager, screen_names)
 
-        layout = MDScreen(
+        class Page(MDScreen):
+            def on_enter(self, *args):
+                if manager.loc == screen_names[0] or manager.loc == "":
+                    # Ensures the first screen is reloaded on login
+                    manager.current_screen.dispatch("on_pre_enter")
+                    manager.current_screen.dispatch("on_enter")
+                else:
+                    manager.loc = screen_names[0]
+
+        layout = Page(
             MDBoxLayout(
                 manager,
                 nav,
@@ -124,18 +130,22 @@ class HeartApp(MDApp):
             ),
             name=f"{self.secured_screen_name} screen"
         )
+
         return layout
 
-    def build(self) -> MDScreenManager:
+    def build_main_entry(self) -> MDScreenManager:
         self.app_manager = AppScreenManager()
         screen_names = ["onboarding", "register", "login", "forgotpassword"]
         self.generate_application_screens(self.app_manager, screen_names)
         secured_screen = self.build_main_layout()
         self.app_manager.add_widget(secured_screen)
         # Note: the follwoing line is same as assigning a value to the property
-        # Clock.schedule_once(lambda _: self.app_manager.setter(
-        #     'loc')(None, self.default_screen), 1)
+        Clock.schedule_once(lambda _: self.app_manager.setter(
+            'loc')(None, self.default_screen), 1)
         return self.app_manager
+
+    def build(self) -> MDScreenManager:
+        return self.build_main_entry()
 
     @mainthread
     def on_global_state(self, _, state):

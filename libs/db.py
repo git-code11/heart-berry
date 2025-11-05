@@ -62,7 +62,7 @@ class Analysis(Base):
     encoded_data: Mapped[Optional[bytes]]
     user: Mapped[User] = relationship(back_populates="records")
     created: Mapped[datetime] = mapped_column(
-        server_default=func.current_date())
+        server_default=func.current_timestamp())
     # __data: Optional[Record]
 
     def __init__(self, **kwargs):
@@ -78,15 +78,15 @@ class Analysis(Base):
     @property
     def data(self) -> Optional[Record]:
         _data = getattr(self, '_data', None)
-        if _data and self.encoded_data is not None:
-            self._data = bson.loads(self.encoded_data)
+        if not _data and self.encoded_data is not None:
+            _data = bson.loads(self.encoded_data)
+            self._data = _data
         return _data
 
     @data.setter
     def data(self, value: Optional[Record]):
         if value is not None:
             self._data = value
-            # print("Value =>", value)
             self.encoded_data = bson.dumps(value)
         else:
             self._data = None
@@ -97,7 +97,7 @@ class Analysis(Base):
 
 
 def init_engine():
-    engine = create_engine("sqlite:///data.db", echo=True)
+    engine = create_engine("sqlite:///data.db", echo=False)
     return engine
 
 

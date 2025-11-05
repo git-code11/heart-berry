@@ -13,6 +13,8 @@ from Model.forgotpassword_screen import ForgotpasswordScreenModel
 from Controller.forgotpassword_screen import ForgotpasswordScreenController
 from Model.listrecord_screen import ListrecordScreenModel
 from Controller.listrecord_screen import ListrecordScreenController
+from Model.preview_screen import PreviewScreenModel
+from Controller.preview_screen import PreviewScreenController
 
 screens = {
     'main screen': {
@@ -38,5 +40,9 @@ screens = {
     'listrecord screen': {
         'model': ListrecordScreenModel,
         'controller': ListrecordScreenController,
+    },
+    'preview screen': {
+        'model': PreviewScreenModel,
+        'controller': PreviewScreenController,
     },
 }
