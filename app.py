@@ -140,8 +140,9 @@ class HeartApp(MDApp):
         secured_screen = self.build_main_layout()
         self.app_manager.add_widget(secured_screen)
         # Note: the follwoing line is same as assigning a value to the property
-        Clock.schedule_once(lambda _: self.app_manager.setter(
-            'loc')(None, self.default_screen), 1)
+        if self.global_state.get('user', None):
+            Clock.schedule_once(lambda _: self.app_manager.setter(
+                'loc')(None, self.default_screen), 1)
         return self.app_manager
 
     def build(self) -> MDScreenManager:
